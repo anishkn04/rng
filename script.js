@@ -38,7 +38,16 @@ const getRandomNum = (count, min, max) => {
     if (count > size) count = size; // cap to available unique numbers
     const randomNums = new Set();
     while (randomNums.size < count) {
-        const rand = Math.floor(Math.random() * size) + min;
+        let rand = Math.floor(Math.random() * size) + min;
+        // Defensive clamp (some mobile JS engines w/ unusual locale/float issues?)
+        if (rand > max) {
+            console.warn('Out-of-range rand detected', {rand, min, max, size});
+            rand = max; // clamp
+        }
+        if (rand < min) {
+            console.warn('Below-range rand detected', {rand, min, max, size});
+            rand = min; // clamp
+        }
         randomNums.add(rand);
     }
     return Array.from(randomNums);

@@ -1,5 +1,6 @@
 // Basic service worker for offline caching of core assets
-const CACHE_NAME = 'rng-pwa-v1';
+// Increment CACHE_NAME when you change core assets to avoid stale caches
+const CACHE_NAME = 'rng-pwa-v2';
 const CORE_ASSETS = [
   './',
   './index.html',
@@ -13,15 +14,16 @@ self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => cache.addAll(CORE_ASSETS))
   );
+  // Activate updated service worker immediately
+  self.skipWaiting();
 });
 
 self.addEventListener('activate', event => {
   event.waitUntil(
     caches.keys().then(keys => Promise.all(
       keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k))
-    ))
+    )).then(() => self.clients.claim())
   );
-  self.clients.claim();
 });
 
 self.addEventListener('fetch', event => {
