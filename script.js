@@ -2,7 +2,7 @@ const countDiv = document.querySelector("#count");
 const minDiv = document.querySelector("#min-random");
 const maxDiv = document.querySelector("#max-random");
 const genButton = document.querySelector("#generator");
-const generatedSection = document.querySelector("#generated-numbers")
+const generatedSection = document.querySelector("#generated-numbers");
 
 const getGenNumHtml = (randomNums) => {
     let genStrings = ""
@@ -12,32 +12,41 @@ const getGenNumHtml = (randomNums) => {
     return genStrings;
 }
 
-generator.addEventListener("click", () => {
-    changeValue()
-})
+genButton.addEventListener("click", () => {
+    changeValue();
+});
 
-function changeValue(){
-    generatedSection.innerHTML = getGenNumHtml(getRandomNum(
-        countDiv.value,
-        minDiv.value,
-        maxDiv.value
-    ))
+function changeValue() {
+    const count = countDiv.value;
+    const min = minDiv.value;
+    const max = maxDiv.value;
+    if (Number(max) < Number(min)) {
+        generatedSection.innerHTML = `<div class="generated">Max must be >= Min</div>`;
+        return;
+    }
+    generatedSection.innerHTML = getGenNumHtml(
+        getRandomNum(count, min, max)
+    );
 }
 
 const getRandomNum = (count, min, max) => {
-    count = Number(count)
-    min = Number(min)
-    max = Number(max)
-    let randomNums = [];
-    for(let i = 0; i < count; i++){
-        contains = true;
-        while(contains){
-            rand = (Math.floor(Math.random() * max)) + min
-            if(!randomNums.includes(rand)){
-                contains = false
-                randomNums.push(rand)
-            }
-        }
+    count = Number(count);
+    min = Number(min);
+    max = Number(max);
+    // Ensure inclusive range and avoid infinite loop when range smaller than count
+    const size = (max - min) + 1;
+    if (count > size) count = size; // cap to available unique numbers
+    const randomNums = new Set();
+    while (randomNums.size < count) {
+        const rand = Math.floor(Math.random() * size) + min;
+        randomNums.add(rand);
     }
-    return randomNums;
+    return Array.from(randomNums);
+};
+
+// Register service worker for PWA
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(err => console.error('SW registration failed', err));
+    });
 }

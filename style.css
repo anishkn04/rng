@@ -58,6 +58,15 @@ main{
     align-items: center;
 }
 
+#range {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+}
+
 input[type="number"]{
     border-radius: 8px;
     padding: 0.5em;
