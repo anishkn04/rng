@@ -1,0 +1,66 @@
+html{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    height: 100dvh;
+    width: 100dvw;
+    background: azure;
+    color: #303030;
+    margin: 0;
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
+}
+
+#title{
+    width: 100%;
+    text-align: center;
+}
+
+#generated-numbers{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 4em;
+}
+
+.generated{
+    font-size: 4rem;
+    color: darkslateblue;
+}
+
+#button-section {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+#generator {
+    padding: 1em 2em;
+    border-radius: 1em;
+
+}
+
+#input-section{
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+    justify-content: center;
+    align-items: center;
+}
+
+input[type="number"]{
+    border-radius: 8px;
+    padding: 0.5em;
+    width: 4em;
+    text-align: center;
+}

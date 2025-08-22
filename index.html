@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>RNG for Quick Use</title>
+</head>
+<body>
+    <main>
+        <section id="title"><h1>Random Number Generator</h1></section>
+        <section id="generated-numbers">
+            <div class="generated">
+                1
+            </div>
+        </section>
+        <section id="button-section">
+            <button id="generator">Generate</button>
+        </section>
+        <section id="input-section">
+            <div id="count-div">
+                <label for="count">Count of Random Numbers: </label>
+                <input type="number" id="count" name="count" min="1" value="1">
+            </div>
+            <div id="range">
+                <label for="min-random">Minimum value: </label><input type="number" id="min-random" name="min-random" value="1" >
+                <label for="max-random">Maximum value: </label><input type="number" id="max-random" name="max-random" value="10" >
+            </div>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
